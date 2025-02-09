@@ -1,5 +1,5 @@
 <?php
-namespace App\config;
+namespace App\Config;
 
 use PDO;
 use PDOException;
@@ -12,6 +12,7 @@ class Database
 
     public static function getInstance(): PDO
     {
+
         if (self::$instance === null) {
             try {
                 $host = $_ENV['DB_HOST'];

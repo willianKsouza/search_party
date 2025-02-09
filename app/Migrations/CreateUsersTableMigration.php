@@ -21,6 +21,7 @@ class CreateUsersTableMigration
     password VARCHAR(100) NOT NULL,
     username VARCHAR(100) NOT NULL UNIQUE,
     bio TEXT,
+    active TINYINT(1) DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
         $db->exec($sql);
     }
@@ -33,5 +34,5 @@ class CreateUsersTableMigration
     }
 }
 
-// CreateUsersTableMigration::up();
+CreateUsersTableMigration::up();
 // CreateUsersTableMigration::down();

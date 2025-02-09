@@ -2,13 +2,14 @@
 
 namespace App\Http\Users;
 
-use App\DTO\AuthDTO;
-use App\Services\Users\AuthenticationUserService;
+
 use Exception;
+use Dotenv\Dotenv;
+use Firebase\JWT\JWT;
+use App\DTO\Users\AuthDTO;
+use App\Services\Users\AuthenticationUserService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use Firebase\JWT\JWT;
-use Dotenv\Dotenv;
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '../../../../');
 $dotenv->load();
@@ -21,20 +22,22 @@ class AuthenticationUserController
     {
 
         try {
-
+            
             $params = (array)$request->getParsedBody();
             $dto = new AuthDTO($params['email'], $params['password']);
-            $user = $this->uthenticationUserService->login($dto);
+            $user = $this->uthenticationUserService->execute($dto);
+            // 'exp' => time() + (6 * 3600)
+  
             $payload = [
-                'user_id' => $user->idUser,
-                'exp' => time() + 
-                3600,
+                'user_id' => $user['id_user'],
+                'exp' => time() + 30
             ];
-            $token = JWT::encode($payload, $_ENV['JWT_KEY'], 'HS256');
-            $response->getBody()->write(json_encode(['user' => $user, 'token' => $token]));
-            return $response->withStatus(200);
+  
+            $token = JWT::encode($payload, $_ENV['JWT_KEY'], $_ENV['ALG']);
+            $response->getBody()->write(json_encode([ 'token' => $token]));
+            return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
         } catch (Exception $e) {
-            $e->getMessage();
+            $response->getBody()->write(json_encode(['sucess' => false]));
         }
     }
 }

@@ -2,22 +2,26 @@
 
 namespace App\Repository\Users;
 
-use App\Config\Database;
-
+use Exception;
 use PDOException;
 
-class FindUserByEmailRepository
+use App\Config\Database;
+use App\DTO\Users\AuthDTO;
+use App\Interfaces\Users\IFindUserByEmailRepository;
+
+
+class FindUserByEmailRepository implements IFindUserByEmailRepository
 {
-    public function login(string $email)
+    public function findByEmail(string|AuthDTO $data)
     {
         try {
             $sql = "SELECT * FROM users WHERE email = :email";
             $stmt = Database::getInstance()->prepare($sql);
-            $stmt->bindParam(':email', $email);
-            $stmt->execute();
+            $stmt->execute([':email' => $data]);
             return $stmt->fetch();
         } catch (PDOException $e) {
-            $e->getMessage();
+            throw new Exception($e->getMessage());
+
         }
     }
 }

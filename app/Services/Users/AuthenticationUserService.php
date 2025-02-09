@@ -2,34 +2,29 @@
 
 namespace App\Services\Users;
 
-use App\DTO\AuthDTO;
-use App\DTO\UserDTO;
-use App\Interfaces\IFindUserByEmailRepository;
-use App\Repository\Users\FindUserByEmailRepository;
 use Exception;
 
+use App\DTO\Users\AuthDTO;
+use App\Interfaces\Users\IFindUserByEmailRepository;
 
-class AuthenticationUserService implements IFindUserByEmailRepository
+
+class AuthenticationUserService
 {
-    public function __construct(private FindUserByEmailRepository $findUserByEmailRepository) {}
-    public function login(string|AuthDTO $data)
+    public function __construct(private IFindUserByEmailRepository $findUserByEmailRepository) {}
+    public function execute(string|AuthDTO $data)
     {
         try {
             if (empty($data->email) || empty($data->password)) {
-                return 'campo nao preenchido';
+                return throw new Exception('campo nao preenchido');
             }
-
-            $user = $this->findUserByEmailRepository->login($data->email);
+            $user = $this->findUserByEmailRepository->findByEmail($data->email);
             if (password_verify($data->password, $user['password'])) {
-
-
-                $user = new UserDTO($user['id_user'], $user['email'], $user['username'], $user['bio']);
                 return $user;
-            }else {
+            } else {
                 return 'USUARIO NAO AUTENTICADO';
             }
         } catch (Exception $e) {
-            $e->getMessage();
+            return throw new Exception($e->getMessage());
         }
     }
 }

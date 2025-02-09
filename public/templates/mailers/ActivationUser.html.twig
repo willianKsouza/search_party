@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ativação de Conta</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #2d2d2d;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #ffffff;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #a0a0a0;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            h1 {
+                font-size: 20px;
+            }
+            p {
+                font-size: 14px;
+            }
+            .button {
+                width: 100%;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ativação de Conta</h1>
+        <p>Olá, <strong>{{ username|escape }}</strong>!</p>
+        <p>Recebemos uma solicitação para ativar sua conta. Clique no botão abaixo para confirmar e começar a usar nossos serviços:</p>
+        <a class="button" href="http://localhost:5173/success/{{ id|escape }}">Ativar</a>
+        <p>Se você não solicitou essa alteração, ignore este e-mail.</p>
+        <div class="footer">
+            <p>Este é um e-mail automático, por favor não responda.</p>
+        </div>
+    </div>
+    
+</body>
+</html>

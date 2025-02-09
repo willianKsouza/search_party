@@ -1,10 +1,11 @@
 <?php
 namespace App\Services\Posts;
 
-use App\DTO\CreatePostDTO;
-use App\Interfaces\ICreatePostRepository;
-use App\Repository\Posts\FindPostByExactTitleRepository;
 use Exception;
+
+use App\DTO\CreatePostDTO;
+use App\Interfaces\Posts\ICreatePostRepository;
+use App\Repository\Posts\FindPostByExactTitleRepository;
 
 class CreatePostService
 {

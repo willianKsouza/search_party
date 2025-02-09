@@ -2,11 +2,12 @@
 
 namespace App\Repository\Posts;
 
-use App\Config\Database;
-use App\DTO\CreatePostDTO;
-use App\Interfaces\ICreatePostRepository;
 use Exception;
 use PDOException;
+
+use App\Config\Database;
+use App\DTO\CreatePostDTO;
+use App\Interfaces\Posts\ICreatePostRepository;
 
 class CreatePostRepository implements ICreatePostRepository
 {
