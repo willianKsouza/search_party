@@ -2,7 +2,7 @@
 
 namespace App\Http\Posts;
 
-use App\DTO\CreatePostDTO;
+use App\DTO\Posts\CreatePostDTO;
 use App\Services\Posts\CreatePostService;
 use Exception;
 
@@ -25,19 +25,12 @@ class CreatePostController
         $params['body'],
         $params['id_user'],
       );
-
       $this->createPostService->create($dto);
-
       $response->getBody()->write('');
-
-      $response->getBody()->write(json_encode(['success' => true]));
-
-      return $response->withStatus(201);
+      return $response->withStatus(204);
     } catch (Exception $e) {
-      $payload = json_encode(['success' => false,'error' => $e->getMessage()]);
-
+      $payload = json_encode(['success' => false, 'error' => $e->getMessage()]);
       $response->getBody()->write($payload);
-
       return $response->withStatus(302);
     }
   }

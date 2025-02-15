@@ -1,10 +1,9 @@
 <?php
 
 namespace App\Interfaces\email;
-
 use App\DTO\Users\ForgotPasswordDTO;
 
-interface ISendEmailRepository
+interface ISendForgottenPasswordEmailRepository
 {
     public function send(ForgotPasswordDTO $dto);
 }

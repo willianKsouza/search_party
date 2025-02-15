@@ -22,22 +22,23 @@ class AuthenticationUserController
     {
 
         try {
-            
+
             $params = (array)$request->getParsedBody();
             $dto = new AuthDTO($params['email'], $params['password']);
             $user = $this->uthenticationUserService->execute($dto);
-            // 'exp' => time() + (6 * 3600)
-  
+
+ 
             $payload = [
                 'user_id' => $user['id_user'],
-                'exp' => time() + 30
+                'exp' => time() + (6 * 3600)
             ];
-  
+
             $token = JWT::encode($payload, $_ENV['JWT_KEY'], $_ENV['ALG']);
-            $response->getBody()->write(json_encode([ 'token' => $token]));
+            $response->getBody()->write(json_encode(['token' => $token]));
             return $response->withStatus(200)->withHeader('Content-Type', 'application/json');
         } catch (Exception $e) {
-            $response->getBody()->write(json_encode(['sucess' => false]));
+            $response->getBody()->write(json_encode(['message' => $e->getMessage()]));
+            return $response->withStatus(401)->withHeader('Content-Type', 'application/json');
         }
     }
 }

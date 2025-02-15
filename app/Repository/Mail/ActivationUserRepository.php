@@ -23,9 +23,7 @@ class ActivationUserRepository implements IActivationUserRepository
             $this->MailerImplementation->setBody($body);
 
             $this->MailerImplementation->addAddress($_ENV['MAIL_APP']);
-            $this->MailerImplementation->setFrom($dto->email, $dto->username);
-            $this->MailerImplementation->send();
-            return true;
+            return  $this->MailerImplementation->send();
         } catch (Exception $e) {
             return throw new Exception($e->getMessage(), $e->getCode());
         }

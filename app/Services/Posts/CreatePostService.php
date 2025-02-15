@@ -3,7 +3,7 @@ namespace App\Services\Posts;
 
 use Exception;
 
-use App\DTO\CreatePostDTO;
+use App\DTO\Posts\CreatePostDTO;
 use App\Interfaces\Posts\ICreatePostRepository;
 use App\Repository\Posts\FindPostByExactTitleRepository;
 

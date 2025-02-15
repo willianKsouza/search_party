@@ -13,6 +13,7 @@ class UpdateUserService implements IUpdateUserService
     public function __construct(private IUpdateUsersRepository $updateUsersRepository) {}
     public function execute(UpdateUserDTO $dto) {
         try {
+            
             foreach ($dto->params as $field => $value) {
                 if (preg_match('/^[a-zA-Z0-9_]+$/', $field)) {
                     $dto->sqlFields[] = "{$field} = :$field";

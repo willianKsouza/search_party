@@ -12,6 +12,7 @@ class PHPMailerImplementation implements IMailerImplementation {
     public function __construct() {
         $this->mail = new PHPMailer(true);
         $this->setSMTPCredentials();
+        $this->mail->setFrom($_ENV['MAIL_APP']);
     }
 
     private function setSMTPCredentials(): void {
@@ -43,8 +44,7 @@ class PHPMailerImplementation implements IMailerImplementation {
 
     public function send(): bool {
         try {
-            $this->mail->send();
-            return true;
+            return $this->mail->send();
         } catch (PHPMailerException $e) {
             throw new Exception("Erro ao enviar o e-mail: {$this->mail->ErrorInfo}");
         }

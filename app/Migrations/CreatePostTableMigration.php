@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Migrations;
+
 require __DIR__ . '../../../vendor/autoload.php';
+
 use App\Config\Database;
 use Dotenv\Dotenv;
 

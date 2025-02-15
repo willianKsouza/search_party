@@ -3,9 +3,9 @@
 namespace App\Http\Users;
 
 use App\DTO\Users\UpdateUserDTO;
+use App\Interfaces\Users\Services\IUpdateUserService;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use App\Interfaces\Users\Services\IUpdateUserService;
 use Exception;
 
 class UpdateUserController
@@ -15,14 +15,14 @@ class UpdateUserController
     public function update(Request $request, Response $response, array $args)
     {
         try {
-            $params = (array)$request->getParsedBody();
+            $params = $request->getParsedBody();
             $id = $args['id'];
             $dto = new UpdateUserDTO();
             $dto->idUser = $id;
             $dto->params = $params;
             $this->updateUserService->execute($dto);
             $response->getBody()->write('');
-            return $response->withStatus(204)->withHeader('Content-Type', 'application/json');
+            return $response->withStatus(204);
         } catch (Exception $e) {
             if ($e->getMessage() === "usuario nao encontrado") {
                 $response->getBody()->write(json_encode(['sucess' => false, 'message' => $e->getMessage()]));

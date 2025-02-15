@@ -21,7 +21,7 @@ class AuthenticationUserService
             if (password_verify($data->password, $user['password'])) {
                 return $user;
             } else {
-                return 'USUARIO NAO AUTENTICADO';
+                return throw new Exception('usuario nao autenticado', 401);
             }
         } catch (Exception $e) {
             return throw new Exception($e->getMessage());

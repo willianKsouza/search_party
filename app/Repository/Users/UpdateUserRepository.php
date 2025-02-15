@@ -16,11 +16,7 @@ class UpdateUserRepository implements IUpdateUsersRepository
             $sql = "UPDATE users SET " . implode(', ', $dto->sqlFields) . " WHERE id_user = :id_user";
             $stmt = Database::getInstance()->prepare($sql);
             $user = $stmt->execute($dto->params);
-            if ($stmt->rowCount() > 0) {
-                return $user;
-            }else {
-                return throw new Exception("usuario nao encontrado");
-            }
+            return $user;
         } catch (PDOException $e) {
             throw new Exception($e->getMessage());
         }

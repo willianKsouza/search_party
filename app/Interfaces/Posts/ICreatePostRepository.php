@@ -3,7 +3,7 @@ namespace App\Interfaces\Posts;
 
 
 
-use App\DTO\CreatePostDTO;
+use App\DTO\Posts\CreatePostDTO;
 
 interface ICreatePostRepository
 {
